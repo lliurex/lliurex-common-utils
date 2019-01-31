@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use Email::Valid;
+use strict;
+
+sub process_stdin{
+   while(<STDIN>){
+      chomp($_);
+      print "$_ : " . (Email::Valid->address("$_") ? "yes\n": "no\n");
+   }
+   return 0;
+}
+
+sub process_arguments{
+   foreach my $cad (@ARGV){
+      print "$cad : " .(Email::Valid->address("$cad") ? "yes\n": "no\n") ;
+   }
+   return 0;
+}
+
+######
+# main
+######
+
+my $numargs = $#ARGV + 1;
+
+if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
+   process_stdin;
+}else{
+   process_arguments;
+}
+exit 0;
+
+

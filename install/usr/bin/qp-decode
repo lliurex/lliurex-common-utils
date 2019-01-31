@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+
+# We need the Base64, encode_base64 function exactly
+use MIME::QuotedPrint qw(decode_qp);
+use strict;
+
+sub process_stdin{
+   while(<STDIN>){
+      chomp($_);
+      print decode_qp("$_")."\n";
+   }
+   return 0;
+}
+
+sub process_arguments{
+   foreach my $cad (@ARGV){
+      print decode_qp("$cad")."\n";
+   }
+   return 0;
+}
+
+######
+# main
+######
+
+my $numargs = $#ARGV + 1;
+
+if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
+   process_stdin;
+}else{
+   process_arguments;
+}
+exit 0;

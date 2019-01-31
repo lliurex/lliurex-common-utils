@@ -1,0 +1,174 @@
+#!/bin/bash
+# -------
+# File:                llxcfg-passgen
+# Description:         Script to generate secrets/passwords in a LliureX environment
+# (template) Author:   Ramon Onrubia Perez <onrubia_ram@gva.es>
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with this program; if not, write to the Free Software Foundation, Inc., 
+# 51 Franklin St, Fifth Floor, Boston MA 02110-1301 USA
+# --------
+
+set -e
+
+# ---------
+# variables
+# ---------
+
+PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+# TODO: si esta ruta es definitiva, añadirla a llxcfg-runtime.dirs
+PASS_STORE_PATH="/etc/lliurex-secrets/passgen"
+PASS_FILE_EXT="secret"
+
+DEFMODE="600"
+DEFOWNER="root"
+DEFGROUP="root"
+DEFPASSLENGTH="12"
+
+MODE="$DEFMODE"
+OWNER="$DEFOWNER"
+GROUP="$DEFGROUP"
+PASSLENGTH="$DEFPASSLENGTH"
+FORCE=""
+
+#
+# functions
+# ---------
+usage() {
+  CMD_NAME="$(basename "$0")"
+  error_message \
+"Usage: $CMD_NAME [options] PASSNAME {gen|show|remove}\n\
+       $CMD_NAME list \n\
+       where options are: [--force ] [-l |--length=PASSLENGTH] [-m |--mode=MODE] [-o |--owner=OWNER] [-g |--group=GROUP]\n\
+       Generate a password and returns the path where it is store. 
+       If mode, owner or group are not passed, use $DEFMODE, $DEFOWNER:$DEFGROUP as defaults\n\
+       IF PASSLENGTH is not passed, use $DEFPASSLENGTH as password length"
+} 
+
+error_message() {
+   echo -e "$1" >&2
+   exit 1
+}
+# ----
+# main
+# ----
+
+declare -a ARGV
+# Bash arrays are 0-based, but we like ARGC to be equal to the number of non-option arguments.
+# To solve this issue, we use a "C-like" ARGV vector by setting ARGV[0] with the name of script
+# ('basename' of script for arbitrary cosmetic reasons), so real arguments begin with index 1
+# the array will be ARGC+1 elements
+ARGC=0
+ARGV[0]="$(basename "$0")"
+
+while [ $# -ge 1 ] ; do
+   case "$1" in
+      --length=*)
+         PASSLENGTH="${1#--length=}"
+         shift
+         ;;
+      -l)
+         # -l LENGTH as equivalent to --length=LENGTH
+         [ -z "$2" ] && usage
+         PASSLENGTH="$2"
+         shift 2
+         ;;
+      --group=*)
+         GROUP="${1#--group=}"
+         shift
+         ;;
+      -g)
+         # -g GROUP as equivalent to --group=GROUP
+         [ -z "$2" ] && usage
+         GROUP="$2"
+         shift 2
+         ;;
+      --owner=*)
+         OWNER="${1#--owner=}"
+         shift
+         ;;
+      -o)
+         # -o OWNER as equivalent to --owner=MODE
+         [ -z "$2" ] && usage
+         OWNER="$2"
+         shift 2
+         ;;
+      --mode=*)
+         MODE="${1#--mode=}"
+         shift
+         ;;
+      -m)
+         # -m MODE as equivalent to --mode=MODE
+         [ -z "$2" ] && usage
+         MODE="$2"
+         shift 2
+         ;;
+      --force|--chucknorris)
+        FORCE="Y"
+        shift
+        ;;
+      -?*)
+         # an invalid option -* or --* but not a single -
+         usage
+         ;;
+      *)
+         ARGC=$(( $ARGC +1 ))
+         ARGV[$ARGC]="$1"
+         shift
+         ;;
+     esac
+done
+
+case $ARGC in
+   1)
+   	  ACTION="${ARGV[1]}"
+   	  ;;
+   2)
+     # we need 2 arguments
+      PASSNAME="${ARGV[1]}"
+      ACTION="${ARGV[2]}"
+      PASS_FILE="${PASS_STORE_PATH}/${PASSNAME}.${PASS_FILE_EXT}"
+      #echo ok
+      ;;
+   *)   
+      usage
+      ;;
+esac
+
+case "$ACTION" in 
+   gen)
+   		#TODO: add pwgen dependency in llxcfg control file
+   		# comprobar que no existe ya la contraseña, si existe hace falta --force
+   		[ -f $PASS_FILE -a -z "$FORCE" ] && error_message "Use --force to overwrite password"
+		pwgen -cns $PASSLENGTH 1 |llxcfg-install --mode=$MODE --owner=$OWNER --group=$GROUP - "$PASS_FILE" || error_message "Couldn't not generate password in $PASS_FILE path"
+		echo "$PASS_FILE"
+		;;
+   show)
+   		[ -f "${PASS_FILE}" ] || error_message "There is not a PASSNAME named \"$PASSNAME\""
+   		echo "$PASS_FILE"
+		;;
+   list)
+   		find "$PASS_STORE_PATH" -xtype f|sort -u|while read line;
+   		do
+   			echo $(basename $line)|sed -e "s/.${PASS_FILE_EXT}//"
+   		done
+   		;;
+   remove)
+   		[ -f "${PASS_FILE}" ] || error_message "There is not a PASSNAME named \"$PASSNAME\""
+   		rm -f "$PASS_FILE" || error_message "Couldn't not remove $PASS_FILE file"
+   		;;
+   *)
+    	usage
+    	;;
+esac
+exit 0

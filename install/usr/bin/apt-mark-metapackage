@@ -1,0 +1,124 @@
+#!/bin/sh
+# --------
+# File:        apt-mark-metapackage
+# Description: LliureX CDD script to mark/unmark for apt autoremove the
+#              depends and recommends of a metapackage
+# Author:      Luis Garcia Gisbert <garcia_luigis@gva.es>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston MA 02110-1301 USA
+# --------
+
+set -e
+
+#functions
+usage(){
+   echo "Usage: $0 {[un]mark-all|[un]mark-depends|[un]mark-recommends} PKG1 [PKG2 ... PKGN]"
+   exit 1
+}
+
+run_cmd(){
+   local OLDLANG rc
+   OLDLANG="$LANG"
+   rc=0
+   LANG="C"
+   $@ 2> /dev/null || rc=$?
+   LANG="$OLDLANG"
+   return $rc
+}
+
+is_installed(){
+   if [ "$(run_cmd dpkg-query -W -f='${Status}' "$1")" = "install ok installed" ] ; then
+      return 0
+   fi
+   return 1
+}
+
+is_installed1(){
+   if dpkg -L "$1" > /dev/null 2>/dev/null ; then
+      return 0
+   fi
+   return 1
+}
+
+is_installed3(){
+   if dpkg -l |grep -q "ii[[:blank:]]\+${1}\b" ; then
+      return 0
+   fi
+   return 1
+}
+
+mark_pkg(){
+   apt-mark $ACTION $@ || true
+   return 0
+}
+
+# main
+[ $# -ge 2 ] || usage
+
+case "$1" in
+   mark-all)
+      ACTION="markauto"
+      TYPELIST="Depends Recommends"
+      ;;
+   unmark-all)
+      ACTION="unmarkauto"
+      TYPELIST="Depends Recommends"
+      ;;
+   mark-depends)
+      ACTION="markauto"
+      TYPELIST="Depends"
+      ;;
+   unmark-depends)
+      ACTION="unmarkauto"
+      TYPELIST="Depends"
+      ;;
+   mark-recommends)
+      ACTION="markauto"
+      TYPELIST="Recommends"
+      ;;
+   unmark-recommends)
+      ACTION="unmarkauto"
+      TYPELIST="Recommends"
+      ;;
+   *)
+      usage
+      ;;
+esac
+shift
+
+TYPE="other"
+while [ "$1" ] ; do
+   METANAME="$1"
+   if is_installed "$METANAME" ; then
+      run_cmd apt-cache depends "$METANAME" |while read line ; do
+         # get TYPE
+         NEWTYPE="$(echo $line |sed -ne "/^[^:]\+:/{s%:.*$%%;s%|%%;p}")"
+         [ -z "$NEWTYPE" ] || TYPE="$NEWTYPE"
+         if echo "$TYPELIST" |grep -q "${TYPE}\b" ; then
+            # ok, get package name
+            PNAME="$(echo $line |sed -e "s%^.*[[:blank:]]\+%%;s%<%%;s%>%%")"
+            # exclude self and verify status
+            # (test has been removed to speed up execution
+            # there is no problem because apt-mark does nothing with unknow packages)
+#            if [ "$PNAME" != "$METANAME" ] && is_installed "$PNAME" ; then
+               mark_pkg "$PNAME"
+#            fi
+         fi
+      done
+   fi
+   shift
+done
+exit 0
+

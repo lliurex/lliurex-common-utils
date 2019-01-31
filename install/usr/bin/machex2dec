@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+# We need the Net::MAC
+use Net::MAC;
+use strict;
+
+sub process_stdin{
+   while(<STDIN>){
+      chomp($_);
+      _machex2dec("$_");
+   }
+   return 0;
+}
+
+sub process_arguments{
+   foreach my $cad (@ARGV){
+      _machex2dec("$cad");
+   }
+   return 0;
+}
+
+sub _machex2dec{
+
+	my $mac = Net::MAC->new('mac' => @_);
+	my $dec_mac = $mac->convert(
+        	'base' => 10,         # convert from base 16 to base 10
+	        'bit_group' => 8,     # octet grouping
+	        'delimiter' => ':'    # dot-delimited
+        	);
+	$dec_mac=~s/:/;/g;
+	print "$dec_mac;\n";
+
+}
+
+######
+# main
+######
+
+my $numargs = $#ARGV + 1;
+
+if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
+   process_stdin;
+}else{
+   process_arguments;
+}
+exit 0;

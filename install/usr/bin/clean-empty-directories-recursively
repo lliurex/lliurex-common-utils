@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# This Script is Licensed by GPL3 or Higher
+# Author Angel Berlanas Vicente
+
+
+#
+# FUNCTIONS
+#
+
+_die(){
+  
+      echo -e "$1" >&2
+
+      exit 1
+}
+
+_usage() {
+
+     CMD_NAME="$(basename "$0")"
+
+     _die "Usage: $CMD_NAME PATH_FIND_EMPTY_DIRECTORIES \n
+           Usage: STDIN |$CMD_NAME - \n"
+
+}
+
+_find_empty_directories_and_remove_them(){
+
+
+     if [ -d "$1" -a -w "$1" -a -x "$1" ]; then
+       
+          A=1 
+          while [ $A -eq 1 ]; do 
+               B=$(find "$1" -xtype d -empty|grep -v ^.$ |grep -v ^..$) 
+               if [ -z "$B" ]; then 
+                    A=0
+               fi
+               rm -Rf $B ; 
+          done
+
+          return 0
+
+     else
+          return 0
+
+     fi
+
+}
+
+
+#
+# MAIN
+#
+
+[ $# -ne 0 -a "$1" != "-" ] || exec xargs $0     
+     
+     for f in "$@" ; do 
+          
+          [ "$f" = "-" ] || _find_empty_directories_and_remove_them "$f"
+          
+     done
+
+exit 0
+
+

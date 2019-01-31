@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# This Script is Licensed by GPL3 or Higher
+# Author Angel Berlanas Vicente
+
+
+#
+# FUNCTIONS
+#
+
+_die(){
+  
+      echo -e "$1" >&2
+
+      exit 1
+}
+
+_usage() {
+
+     CMD_NAME="$(basename "$0")"
+
+     _die "Usage: $CMD_NAME PATH_TO_CLEAN  \n
+          Usage: STDIN |$CMD_NAME - \n"
+
+}
+
+_find_and_clean(){
+
+     # Test if is Directory and other importants things
+     if [ -d $1 -a -w $1 -a -x $1 ]; then  
+          find "$1" -mindepth 1 -maxdepth 1 -type l | (while read FN ; do [ -e "$FN" ] || rm -rf  "$FN" 2>/dev/null ; done)
+          return 0
+     
+     else
+
+          return 0
+     
+     fi
+}
+
+#
+# MAIN
+#
+if [ $# -eq 0 ] ; then 
+	_usage
+else 
+	if [ "$1" != "-" ] ; then
+		for f in "$@" ; do 
+          
+	         [ "$f" != "-" ] && _find_and_clean "$f" 
+          
+		done
+	else
+		exec xargs $0
+	fi
+fi 
+exit 0
+
+#find ${1}  -mindepth 1 -maxdepth 1 -empty -xtype d -exec rm -rf {} \;
+#find $NETGROUP_DIR -type l -mindepth $2 -maxdepth $3 -exec rm -rf {} \;
+
+
