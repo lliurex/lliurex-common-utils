@@ -1,0 +1,7 @@
+debian/help/base64-decode.1
+debian/help/base64-encode.1
+debian/help/md5-encode.1
+debian/help/qp-decode.1
+debian/help/qp-encode.1
+debian/help/machex2dec.1
+debian/help/llxcfg-passgen.8

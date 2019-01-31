@@ -1,0 +1,46 @@
+.TH "Base64 Encoder" "1" 
+.SH "NAME" 
+base64-encode \(em Fast Base 64 encoder 
+.SH "SYNOPSIS" 
+.PP 
+\fBbase64-encode\fR [strings]  
+.PP 
+\fBbase64-encode < input > output\fR 
+.SH "DESCRIPTION" 
+.PP 
+The MIME (Multipurpose Internet Mail Extensions) specification (RFC 1341 and successors) defines a   
+mechanism for encoding arbitrary binary information for transmission by electronic mail.  Triplets of 8-bit   
+octets  are  encoded as  groups  of  four  characters,  each representing 6 bits of the source 24 bits. 
+.PP 
+\fBbase64-encode\fRis a command line utility which encodes in this format.    
+It can be used within a pipeline as an encoding filter, and is most commonly used in this manner as part of an automated   
+mail processing system. UNIX's newline convention is used, i.e. one ASCII control-j (10 decimal).  
+.PP 
+This manual page was written for the \fBLliureX\fP distribution 
+because the original program does not have a manual page. 
+.SH "FILES" 
+.PP 
+If  no  input file is specified or is a single ''\-'', \fBbase64-encode\fR reads from standard input; if  
+no outfile is given, or outfile is a single ''\-'', output is sent to standard output.  The input  and  output  are   
+processed  strictly serially; consequently \fBbase64-encode\fR may be used in pipelines. 
+.SH "BUGS" 
+.PP 
+Create a new ticket in the LliureX Project Manager by introducing 
+your email and a brief explanation of the trouble. 
+.PP 
+https://lliurex.net/projects/valencia/lliurex-pool-ng/newticket 
+.SH "SEE ALSO" 
+.PP 
+base64-decode(1), qp-encode(1), qp-decode(1) 
+.SH "AUTHOR" 
+.PP 
+This manual page was written by Fco Javier Lopez Perez <lopez_frajav@gva.es> for 
+the \fBLliureX\fP system (but may be used by others).  Permission is 
+granted to copy, distribute and/or modify this document under 
+the terms of the GNU General Public License, Version 2 any  
+later version published by the Free Software Foundation. 
+ 
+.PP 
+On Debian systems, the complete text of the GNU General Public 
+License can be found in /usr/share/common-licenses/GPL.	 
+.\" created by instant / docbook-to-man, Thu 19 Jun 2008, 14:08 

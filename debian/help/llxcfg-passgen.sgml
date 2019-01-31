@@ -1,0 +1,184 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+
+  <!ENTITY dhfirstname "<firstname>Ramón</firstname>">
+  <!ENTITY dhsurname   "<surname>Ronrubia Pérez</surname>">
+  <!ENTITY dhdate      "<date>Jun 6, 2008</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>8</manvolnum>">
+  <!ENTITY dhemail     "<email>onrubia_ram@gva.es</email>">
+  <!ENTITY dhusername  "Ramón Ronrubia Pérez">
+  <!ENTITY dhucpackage "<refentrytitle>Password Generator</refentrytitle>">
+  <!ENTITY dhpackage   "llxcfg-passgen">
+  <!ENTITY dhticket    "https://lliurex.net/projects/valencia/lliurex-pool-ng/newticket">
+
+  <!ENTITY debian      "<productname>LliureX</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2008</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&dhpackage;</refname>
+
+    <refpurpose>Utility for password generation on LliureX</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&dhpackage;</command> 
+      <arg choice="opt">options</arg>
+      <arg choice="plain">name</arg>
+      <group choice="req">
+         <arg>show</arg>
+         <arg>gen</arg>
+         <arg>remove</arg>
+      </group>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para>This manual page documents briefly the
+      <command>&dhpackage;</command> command.</para>
+
+    <para><command>&dhpackage;</command> is a command line utility to create passwords.</para>
+    <para>These passwords are stored in /etc/lliurex-secrets/passgen/ directory.</para>
+
+    <para>This manual page was written for the &debian; distribution
+      because the original program does not have a manual page.</para>
+      
+  </refsect1>
+  <refsect1>
+    <title>OPTIONS</title>
+    <para>A summary of options is included below.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>-l, --length=PASSLENGTH</option></term>
+        <listitem><para>Set the password length of characters generated. By default 12</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-o, --owner=OWNER</option></term>
+        <listitem><para>Set the owner of the password file generated. By default root</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-g, --group=GROUP</option></term>
+        <listitem><para>Set the group of the password file generated. By default root</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-m, --mode=MODE</option></term>
+        <listitem><para>Set the permission in octal of the password generated. By default 600</para></listitem>
+      </varlistentry>
+      <varlistentry>
+    	<term><option>--force, --chucknorris</option></term>
+        <listitem><para>Force mode. the operation is made, although it can be unsure or dangeorus</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>COMMANDS</title>
+    <para>A summary of commands is included below.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>show</option></term>
+        <listitem><para>Display the password</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>gen</option></term>
+        <listitem><para>Generate the password</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>remove</option></term>
+        <listitem><para>Remove the password</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>Create a new ticket in the LliureX Project Manager by introducing
+      your email and a brief explanation of the trouble.</para>
+    <para>&dhticket;</para>
+
+  </refsect1>
+  
+    <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>lliurex-pki(1)</para>
+    
+  </refsect1>
+  
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; <&dhemail;> for
+      the &debian; system (but may be used by others).  Permission is
+      granted to copy, distribute and/or modify this document under
+      the terms of the &gnu; General Public License, Version 2 any 
+	  later version published by the Free Software Foundation.
+    </para>
+	<para>
+	  On Debian systems, the complete text of the GNU General Public
+	  License can be found in /usr/share/common-licenses/GPL.	</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+
