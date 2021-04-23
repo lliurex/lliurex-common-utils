@@ -1,3 +1,9 @@
+lliurex-common-utils (0.13) focal; urgency=medium
+
+  * Focal packaging 
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 23 Apr 2021 13:48:50 +0200
+
 lliurex-common-utils (0.13) bionic; urgency=high
 
   * First bionic release
