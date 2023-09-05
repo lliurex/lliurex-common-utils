@@ -1,0 +1,139 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+
+  <!ENTITY dhfirstname "<firstname>Fco Javier</firstname>">
+  <!ENTITY dhsurname   "<surname>Lopez Perez</surname>">
+  <!ENTITY dhdate      "<date>Jun 19, 2008</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>1</manvolnum>">
+  <!ENTITY dhemail     "<email>lopez_frajav@gva.es</email>">
+  <!ENTITY dhusername  "Fco Javier Lopez Perez">
+  <!ENTITY dhucpackage "<refentrytitle>Quoted-Printable Encoder</refentrytitle>">
+  <!ENTITY dhpackage   "qp-encode">
+  <!ENTITY dhticket    "https://lliurex.net/projects/valencia/lliurex-pool-ng/newticket">
+
+  <!ENTITY debian      "<productname>LliureX</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2008</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&dhpackage;</refname>
+
+    <refpurpose>Fast Quoted Printable encoder</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&dhpackage;</command> 
+      <arg>strings</arg>
+    </cmdsynopsis>
+        <cmdsynopsis>
+      <command>&dhpackage; < input > output</command> 
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+ 
+    <para><command>&dhpackage;</command>is a command line utility which encodes in quoted printable format.   
+    It can be used within a pipeline as an encoding filter, and is most commonly used in this manner as part of an automated  
+    mail processing system. UNIX's newline convention is used, i.e. one ASCII control-j (10 decimal). </para>
+
+    <para>This manual page was written for the &debian; distribution
+      because the original program does not have a manual page.</para>
+
+  </refsect1>
+  
+   <refsect1>
+    <title>FILES</title>
+    
+    <para>If  no  input file is specified or is a single ''-'', <command>&dhpackage;</command> reads from standard input; if 
+    no outfile is given, or outfile is a single ''-'', output is sent to standard output.  The input  and  output  are  
+    processed  strictly serially; consequently <command>&dhpackage;</command> may be used in pipelines.</para>  
+   </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>Create a new ticket in the LliureX Project Manager by introducing
+      your email and a brief explanation of the trouble.</para>
+    <para>&dhticket;</para>
+
+  </refsect1>
+     
+  <refsect1>
+    <title>SEE ALSO</title>
+  
+    <para>base64-decode(1), base64-encode(1), qp-decode(1)</para>
+  </refsect1>  
+  
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>This manual page was written by &dhusername; <&dhemail;> for
+      the &debian; system (but may be used by others).  Permission is
+      granted to copy, distribute and/or modify this document under
+      the terms of the &gnu; General Public License, Version 2 any 
+	  later version published by the Free Software Foundation.
+    </para>
+	<para>
+	  On Debian systems, the complete text of the GNU General Public
+	  License can be found in /usr/share/common-licenses/GPL.	</para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

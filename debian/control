@@ -1,0 +1,18 @@
+Source: lliurex-common-utils
+Section: utils
+Priority: optional
+Maintainer: Equipo LliureX <lliurex@gva.es>
+Build-Depends: debhelper ( >= 6.0.7)
+Standards-Version: 3.9.7
+
+Package: lliurex-common-utils
+Architecture: all
+Depends: ${misc:Depends},${perl:Depends}, libmime-tools-perl, pwgen, libemail-valid-perl, libnet-mac-perl, sudo
+Conflicts: lliurex-cdd (<= 8.09.0.7), lliurex-pki (<= 0.7.4)
+Description: Common utilities for LliureX
+ This package permits the generation of Quoted-Printable and 
+ Base64 mime strings, md5 of strings, validate e-mails and so on
+ .
+ An older Debian package called mime-codecs makes the same 
+ work, but it is not in Debian mirror now.
+ This package makes this work via perl in LliureX.

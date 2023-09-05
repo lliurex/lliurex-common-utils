@@ -1,0 +1,169 @@
+lliurex-common-utils (0.13) focal; urgency=medium
+
+  * Focal packaging 
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Fri, 23 Apr 2021 13:48:50 +0200
+
+lliurex-common-utils (0.13) bionic; urgency=high
+
+  * First bionic release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 31 Jan 2019 09:41:01 +0100
+
+lliurex-common-utils (0.12) xenial; urgency=medium
+
+  * New package ported to xenial from trusty
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Mon, 01 Feb 2016 10:09:20 +0100
+
+lliurex-common-utils (0.12) trusty; urgency=medium
+
+  *Prepared for trusty 
+
+ -- Daniel Duran Vecino <daduve@gmail.com>  Fri, 16 Jan 2015 09:57:16 +0100
+
+lliurex-common-utils (0.11) precise; urgency=low
+
+  * Prepared for Pandora 
+
+ -- Angel Berlanas Vicente <angel.berlanas@gmail.com>  Fri, 19 Oct 2012 11:15:54 +0200
+
+lliurex-common-utils (0.9) precise; urgency=low
+
+  * First Pandora release
+
+ -- Raul Rodrigo Segura <lliurex_devel3@edu.gva.es>  Mon, 26 Mar 2012 14:19:44 +0200
+
+lliurex-common-utils (0.8) unstable; urgency=low
+
+  * Uploaders Fixed
+
+ -- Jose Carlos Garcia <garcia_josmon@gva.es>  Tue, 17 Jan 2012 11:52:24 +0100
+
+lliurex-common-utils (0.7) unstable; urgency=low
+
+  * First Marty release
+
+ -- Luis Antonio Garcia Gisbert <garcia_luigis@gva.es>  Thu, 25 Mar 2010 09:58:06 +0100
+
+lliurex-common-utils (0.6.0) unstable; urgency=low
+
+  * First leia release
+
+ -- Luis Antonio Garcia Gisbert <garcia_luigis@gva.es>  Wed, 24 Mar 2010 22:39:20 +0100
+
+lliurex-common-utils (0.5.1) unstable; urgency=low
+
+  * pe moved to llxcfg-runtime
+
+ -- Luis Antonio Garcia Gisbert <garcia_luigis@gva.es>  Mon, 18 Jan 2010 10:12:46 +0100
+
+lliurex-common-utils (0.5.0) unstable; urgency=low
+    
+    * First Kripton version
+    
+
+ -- Alfons Lloret Sananton <lliurex_devel5@edu.gva.es>  Tue, 17 Nov 2009 11:22:42 +0100
+
+lliurex-common-utils (0.4.0) unstable; urgency=low
+
+  * Solved bug on clean-broken-links
+  * Uploaders Fixed
+
+ -- Raul Rodrigo Segura <raurodse.gva@gmail.com>  Tue, 01 Sep 2009 09:34:39 +0200
+
+lliurex-common-utils (0.3.9) unstable; urgency=low
+
+  * Minor fixes
+
+ -- Luis Antonio Garcia Gisbert <garcia_luigis@gva.es>  Tue, 23 Jun 2009 12:36:33 +0200
+
+lliurex-common-utils (0.3.8) unstable; urgency=low
+
+  [ Angel Berlanas Vicente ]
+  * Added machex2dec script to convert Hexadecimal MAC Addres to Decimal
+    Notation.
+
+  [ Luis Antonio Garcia Gisbert ]
+  * Added new tool pe: 'Privileged Exec'
+
+ -- Luis Antonio Garcia Gisbert <garcia_luigis@gva.es>  Tue, 23 Jun 2009 12:27:06 +0200
+
+lliurex-common-utils (0.3.7) unstable; urgency=low
+
+  * Fixed libmime-tools-perl new Dependence 
+  * Uploaders Fixed
+
+ -- Angel Berlanas Vicente <aberlanas.gva@gmail.com>  Thu, 20 Nov 2008 10:42:44 +0100
+
+lliurex-common-utils (0.3.6) unstable; urgency=low
+
+  * Added clean directory empty recursively  
+
+ -- Angel Berlanas Vicente <aberlanas.gva@gmail.com>  Tue, 14 Oct 2008 10:48:36 +0200
+
+lliurex-common-utils (0.3.5) unstable; urgency=low
+
+  [ Fco Javier Lopez Perez ]
+  * Validate-mail script added.
+  * libemail-valid-perl dependency added
+
+  [ Angel Berlanas Vicente ]
+  * Added clean-empty-directories
+  * Added clean-broken-links 
+
+ -- Angel Berlanas Vicente <aberlanas.gva@gmail.com>  Thu, 25 Sep 2008 19:21:39 +0200
+
+lliurex-common-utils (0.3.4) unstable; urgency=low
+
+  * Oops, llxcfg-passwgen moved from lliurex-pki, so a conflicts is needed.
+    Added this missing conflict.
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Wed, 25 Jun 2008 09:33:33 +0200
+
+lliurex-common-utils (0.3.3) unstable; urgency=low
+
+  * Oops, apt-mark-metapackage has been moved from lliurex-cdd, so a conflicts
+    is needed. Added this missing conflicts.
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Fri, 20 Jun 2008 15:09:04 +0200
+
+lliurex-common-utils (0.3.2) unstable; urgency=low
+
+  * Added missing dependency pwgen
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Fri, 20 Jun 2008 13:00:52 +0200
+
+lliurex-common-utils (0.3.1) unstable; urgency=low
+
+  * Added llxcfg-passgen script and manpages.
+  * Added dirs file to create /etc/lliurex-secrets/passgen
+  * Moved apt-mark-metapackage from lliurex-cdd
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Fri, 20 Jun 2008 12:59:23 +0200
+
+lliurex-common-utils (0.3) unstable; urgency=low
+
+  [ Fco Javier Lopez Perez ]
+  * Renamed package lliurex-mime-codecs->lliurex-common-utils.
+  * Added md5-encode script to calculate a md5 of a string.
+  * Manpages added.
+  * Uploaders fixed.
+  * Rewrited scripts, more clear perl code.
+  
+  [ Angel Berlanas Vicente ]
+  * Added perl utilities for Gconf management.
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Thu, 19 Jun 2008 15:04:14 +0200
+
+lliurex-mime-codecs (0.2) feisty; urgency=low
+
+  * Updated scripts to manage parameters and stdin
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Mon, 25 Jun 2007 08:38:18 +0200
+
+lliurex-mime-codecs (0.1) feisty; urgency=low
+
+  * Initial release.
+
+ -- Fco Javier Lopez Perez <lopez_frajav@gva.es>  Thu, 14 Jun 2007 12:06:23 +0200

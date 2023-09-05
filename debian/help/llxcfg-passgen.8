@@ -1,0 +1,60 @@
+.TH "Password Generator" "8" 
+.SH "NAME" 
+llxcfg-passgen \(em Utility for password generation on LliureX 
+.SH "SYNOPSIS" 
+.PP 
+\fBllxcfg-passgen\fR [options] name  {show  | gen  | remove }  
+.SH "DESCRIPTION" 
+.PP 
+This manual page documents briefly the 
+\fBllxcfg-passgen\fR command. 
+.PP 
+\fBllxcfg-passgen\fR is a command line utility to create passwords. 
+.PP 
+These passwords are stored in /etc/lliurex-secrets/passgen/ directory. 
+.PP 
+This manual page was written for the \fBLliureX\fP distribution 
+because the original program does not have a manual page. 
+.SH "OPTIONS" 
+.PP 
+A summary of options is included below. 
+.IP "\fB-l, \-\-length=PASSLENGTH\fP"  
+Set the password length of characters generated. By default 12 
+.IP "\fB-o, \-\-owner=OWNER\fP"  
+Set the owner of the password file generated. By default root 
+.IP "\fB-g, \-\-group=GROUP\fP"  
+Set the group of the password file generated. By default root 
+.IP "\fB-m, \-\-mode=MODE\fP"  
+Set the permission in octal of the password generated. By default 600 
+.IP "\fB\-\-force, \-\-chucknorris\fP"  
+Force mode. the operation is made, although it can be unsure or dangeorus 
+.SH "COMMANDS" 
+.PP 
+A summary of commands is included below. 
+.IP "\fBshow\fP"  
+Display the password 
+.IP "\fBgen\fP"  
+Generate the password 
+.IP "\fBremove\fP"  
+Remove the password 
+.SH "BUGS" 
+.PP 
+Create a new ticket in the LliureX Project Manager by introducing 
+your email and a brief explanation of the trouble. 
+.PP 
+https://lliurex.net/projects/valencia/lliurex-pool-ng/newticket 
+.SH "SEE ALSO" 
+.PP 
+lliurex-pki(1) 
+.SH "AUTHOR" 
+.PP 
+This manual page was written by Ramón Ronrubia Pérez <onrubia_ram@gva.es> for 
+the \fBLliureX\fP system (but may be used by others).  Permission is 
+granted to copy, distribute and/or modify this document under 
+the terms of the GNU General Public License, Version 2 any  
+later version published by the Free Software Foundation. 
+ 
+.PP 
+On Debian systems, the complete text of the GNU General Public 
+License can be found in /usr/share/common-licenses/GPL.	 
+.\" created by instant / docbook-to-man, Fri 20 Jun 2008, 14:11 
