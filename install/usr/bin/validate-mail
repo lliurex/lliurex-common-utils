@@ -1,33 +1,28 @@
-#!/usr/bin/perl
-use Email::Valid;
-use strict;
+#!/usr/bin/env python3
+import argparse
+import sys
+from email_validator import validate_email
 
-sub process_stdin{
-   while(<STDIN>){
-      chomp($_);
-      print "$_ : " . (Email::Valid->address("$_") ? "yes\n": "no\n");
-   }
-   return 0;
-}
+def check_mail(email):
+    try:
+        validate_email(email, check_deliverability=False)
+        print(email+" : yes" )
+    except:
+        print(email + " : no" )
 
-sub process_arguments{
-   foreach my $cad (@ARGV){
-      print "$cad : " .(Email::Valid->address("$cad") ? "yes\n": "no\n") ;
-   }
-   return 0;
-}
+def parse_arguments():
+    parser = argparse.ArgumentParser(prog="email validator", description="email validator")
+    parser.add_argument("email", nargs="+")
+    return parser.parse_args().email
 
-######
-# main
-######
-
-my $numargs = $#ARGV + 1;
-
-if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
-   process_stdin;
-}else{
-   process_arguments;
-}
-exit 0;
-
-
+if __name__ == "__main__":
+    stdin = False 
+    if len(sys.argv) > 1:
+        provider = parse_arguments()
+    else:
+        provider = sys.stdin
+        stdin = True
+    for line in provider:
+        if stdin:
+            line = line.strip()
+        check_mail(line)

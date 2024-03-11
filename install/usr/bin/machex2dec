@@ -1,46 +1,28 @@
-#!/usr/bin/perl
+#!/usr/bin/env python3
+import sys
+import argparse
+import re
 
-# We need the Net::MAC
-use Net::MAC;
-use strict;
+def parse_args():
+    parser = argparse.ArgumentParser(prog="",description="")
+    parser.add_argument("macs",nargs="+")
+    return parser.parse_args().macs
 
-sub process_stdin{
-   while(<STDIN>){
-      chomp($_);
-      _machex2dec("$_");
-   }
-   return 0;
-}
+def convert_mac(mac):
+    mac = re.sub('[.:-]', '', mac).lower()  # remove delimiters and convert to lower case
+    mac = ''.join(mac.split())  # remove whitespaces
+    assert len(mac) == 12  # length should be now exactly 12 (eg. 008041aefd7e)
+    assert mac.isalnum()  # should only contain letters and numbers
+    # convert mac in canonical form (eg. 00:80:41:ae:fd:7e)
+    mac = ";".join(["%s" % (mac[i:i+2]) for i in range(0, 12, 2)]) + ";"
+    return mac
 
-sub process_arguments{
-   foreach my $cad (@ARGV){
-      _machex2dec("$cad");
-   }
-   return 0;
-}
 
-sub _machex2dec{
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        provider = parse_args()
+    else:
+        provider = sys.stdin
 
-	my $mac = Net::MAC->new('mac' => @_);
-	my $dec_mac = $mac->convert(
-        	'base' => 10,         # convert from base 16 to base 10
-	        'bit_group' => 8,     # octet grouping
-	        'delimiter' => ':'    # dot-delimited
-        	);
-	$dec_mac=~s/:/;/g;
-	print "$dec_mac;\n";
-
-}
-
-######
-# main
-######
-
-my $numargs = $#ARGV + 1;
-
-if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
-   process_stdin;
-}else{
-   process_arguments;
-}
-exit 0;
+    for x in provider:
+        print(convert_mac(x))
