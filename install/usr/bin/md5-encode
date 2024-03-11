@@ -1,33 +1,22 @@
-#!/usr/bin/perl
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import sys
 
-# We need the Base64, encode_base64 function exactly
-use Digest::MD5 qw(md5_hex);
-use strict;
+def parse_args():
+    parser = argparse.ArgumentParser(prog="md5 encode", description="md5 encode")
+    parser.add_argument("string", nargs="+")
+    return parser.parse_args().string
 
-sub process_stdin{
-   while(<STDIN>){
-      chomp($_);
-      print md5_hex("$_")."\n";
-   }
-   return 0;
-}
-
-sub process_arguments{
-   foreach my $cad (@ARGV){
-      print md5_hex("$cad")."\n";
-   }
-   return 0;
-}
-
-######
-# main
-######
-
-my $numargs = $#ARGV + 1;
-
-if (( $numargs == 0 ) or ( $numargs == 1 and  $ARGV[0] eq "-")) {
-   process_stdin;
-}else{
-   process_arguments;
-}
-exit 0;
+if __name__ == '__main__':
+    stdin = False
+    if len(sys.argv) > 1:
+        list_strings = parse_args()
+        provider = list_strings
+    else:
+        provider = sys.stdin
+        stdin = True
+    for line in provider:
+        if stdin:
+            line = line.strip()
+        print(hashlib.md5(bytes(line,'utf-8')).hexdigest())
