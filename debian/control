@@ -7,7 +7,7 @@ Standards-Version: 3.9.7
 
 Package: lliurex-common-utils
 Architecture: all
-Depends: ${misc:Depends},${perl:Depends}, libmime-tools-perl, pwgen, libemail-valid-perl, libnet-mac-perl, sudo
+Depends: ${misc:Depends},pwgen, python3-email-validator, sudo
 Conflicts: lliurex-cdd (<= 8.09.0.7), lliurex-pki (<= 0.7.4)
 Description: Common utilities for LliureX
  This package permits the generation of Quoted-Printable and 
